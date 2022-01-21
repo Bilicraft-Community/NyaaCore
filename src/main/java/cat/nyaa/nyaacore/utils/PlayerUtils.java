@@ -5,8 +5,8 @@ import net.minecraft.server.level.EntityPlayer;
 import net.minecraft.world.EnumHand;
 import net.minecraft.world.entity.player.PlayerInventory;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -15,7 +15,7 @@ public class PlayerUtils {
         if (book != null && book.getType() == Material.WRITTEN_BOOK) {
             sendFakeItemStack(player, player.getInventory().getHeldItemSlot(), book);
             // ((CraftPlayer) player).getHandle().openBook(CraftItemStack.asNMSCopy(book), EnumHand.MAIN_HAND);
-            ((CraftPlayer) player).getHandle().openBook(CraftItemStack.asNMSCopy(book), EnumHand.a);
+            ((CraftPlayer) player).getHandle().a(CraftItemStack.asNMSCopy(book), EnumHand.a);
             player.updateInventory();
         }
     }
@@ -27,7 +27,7 @@ public class PlayerUtils {
             return;
         }
         // if (index < net.minecraft.server.v1_16_R3.PlayerInventory.getHotbarSize()) {
-        if (index < PlayerInventory.getHotbarSize()) {
+        if (index < PlayerInventory.g()) {
             index += 36;
         } else if (index > 39) {
             index += 5;
@@ -35,7 +35,7 @@ public class PlayerUtils {
             index = 8 - (index - 36);
         }
         // player.playerConnection.sendPacket(new PacketPlayOutSetSlot(player.defaultContainer.windowId, index, CraftItemStack.asNMSCopy(itemStack)));
-        player.b.sendPacket(new PacketPlayOutSetSlot(player.bU.j, index, CraftItemStack.asNMSCopy(itemStack)));
+        player.b.a(new PacketPlayOutSetSlot(player.bW.j, player.bW.k(), index, CraftItemStack.asNMSCopy(itemStack)));
     }
 
     public static int getPing(Player p) {

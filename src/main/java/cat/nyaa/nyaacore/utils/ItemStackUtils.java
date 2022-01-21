@@ -14,7 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.datafix.DataConverterRegistry;
 import net.minecraft.util.datafix.fixes.DataConverterTypes;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.*;
@@ -53,12 +53,14 @@ public final class ItemStackUtils {
     public static byte[] itemToBinary(ItemStack itemStack) throws IOException {
         net.minecraft.world.item.ItemStack nativeItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        nativeItemStack.save(nbtTagCompound);
-        nbtTagCompound.setInt(NYAACORE_ITEMSTACK_DATAVERSION_KEY, currentDataVersion);
+        nativeItemStack.c(nbtTagCompound);
+        //setInt
+        nbtTagCompound.a(NYAACORE_ITEMSTACK_DATAVERSION_KEY, currentDataVersion);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(baos);
-        nbtTagCompound.write(dos);
+        //write
+        nbtTagCompound.a(dos);
         byte[] outputByteArray = baos.toByteArray();
         dos.close();
         baos.close();
@@ -87,9 +89,11 @@ public final class ItemStackUtils {
         NBTTagCompound reconstructedNBTTagCompound = NBTTagCompound.b.b(dataInputStream, 0, unlimitedNBTReadLimiter);
         dataInputStream.close();
         byteArrayInputStream.close();
-        int dataVersion = reconstructedNBTTagCompound.getInt(NYAACORE_ITEMSTACK_DATAVERSION_KEY);
+        //getInt
+        int dataVersion = reconstructedNBTTagCompound.h(NYAACORE_ITEMSTACK_DATAVERSION_KEY);
         if (dataVersion > 0) {
-            reconstructedNBTTagCompound.remove(NYAACORE_ITEMSTACK_DATAVERSION_KEY);
+            //remove
+            reconstructedNBTTagCompound.r(NYAACORE_ITEMSTACK_DATAVERSION_KEY);
         }
         if (dataVersion < currentDataVersion) {
             // 1.12 to 1.13
@@ -227,7 +231,8 @@ public final class ItemStackUtils {
         try {
             nmsNbtTagCompoundObj = new NBTTagCompound();
             nmsItemStackObj = CraftItemStack.asNMSCopy(itemStack);
-            itemAsJsonObject = nmsItemStackObj.save(nmsNbtTagCompoundObj);
+            //save
+            itemAsJsonObject = nmsItemStackObj.b(nmsNbtTagCompoundObj);
         } catch (Throwable t) {
             throw new RuntimeException("failed to serialize itemstack to nms item", t);
         }

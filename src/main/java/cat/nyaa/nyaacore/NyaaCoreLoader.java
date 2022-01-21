@@ -9,11 +9,11 @@ import cat.nyaa.nyaacore.utils.ClickSelectionUtils;
 import cat.nyaa.nyaacore.utils.OfflinePlayerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.craftbukkit.v1_17_R1.util.CraftMagicNumbers;
+import org.bukkit.craftbukkit.v1_18_R1.util.CraftMagicNumbers;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class NyaaCoreLoader extends JavaPlugin {
-    public static final String TARGET_MAPPING = "c2d5d7871edcc4fb0f81d18959c647af";
+    public static final String TARGET_MAPPING = "20b026e774dbf715e40a0b2afe114792";
     private static NyaaCoreLoader instance;
 
     static {
